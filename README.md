@@ -12,8 +12,23 @@ Steam on the command line
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
 # Usage
 <!-- usage -->
+```sh-session
+$ npm install -g steam-api-cli
+$ steam COMMAND
+running command...
+$ steam (-v|--version|version)
+steam-api-cli/1.0.0 win32-x64 node-v14.15.4
+$ steam --help [COMMAND]
+USAGE
+  $ steam COMMAND
+...
+```
+<!-- usagestop -->
 ```sh-session
 $ npm install -g steam-api-cli
 $ steam COMMAND
@@ -51,18 +66,17 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.1
 
 ## `steam inv`
 
-Describe the command here
+Grab your items from your inventory
 
 ```
 USAGE
   $ steam inv
 
 OPTIONS
-  -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
+  -d, --default      Use this to set the given user as the default
+  -g, --game=game    Change the default game setting
+  -t, --trade=trade  Change the default show-tradeable-item setting
+  -u, --user=user    Change the default steamID64 setting
 ```
 
 _See code: [src/commands/inv.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v1.0.0/src/commands/inv.js)_
