@@ -12,23 +12,8 @@ Steam on the command line
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
 # Usage
 <!-- usage -->
-```sh-session
-$ npm install -g steam-api-cli
-$ steam COMMAND
-running command...
-$ steam (-v|--version|version)
-steam-api-cli/1.0.0 win32-x64 node-v14.15.4
-$ steam --help [COMMAND]
-USAGE
-  $ steam COMMAND
-...
-```
-<!-- usagestop -->
 ```sh-session
 $ npm install -g steam-api-cli
 $ steam COMMAND
