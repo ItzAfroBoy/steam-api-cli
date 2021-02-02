@@ -1,0 +1,57 @@
+{
+  "name": "steam-api-cli",
+  "description": "Steam on the command line",
+  "version": "1.0.0",
+  "author": "Brett @ItzAfroBoy",
+  "bin": {
+    "steam": "./bin/run"
+  },
+  "bugs": "https://github.com/ItzAfroBoy/steam-api-cli/issues",
+  "dependencies": {
+    "@oclif/command": "^1.8.0",
+    "@oclif/config": "^1.17.0",
+    "@oclif/plugin-help": "^3.2.1",
+    "axios": "^0.21.1",
+    "chalk": "^4.1.0",
+    "clear": "^0.1.0",
+    "cli-ux": "^5.5.1",
+    "conf": "^9.0.0",
+    "steam-inventory-api": "^2.0.10",
+    "steam-market-parser": "^1.0.6",
+    "steam-market-pricing": "^2.0.0"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.26.0",
+    "globby": "^10.0.2",
+    "rimraf": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "/src"
+  ],
+  "homepage": "https://github.com/ItzAfroBoy/steam-api-cli",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "oclif": {
+    "commands": "./src/commands",
+    "bin": "steam",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "ItzAfroBoy/steam-api-cli",
+  "scripts": {
+    "postpack": "rimraf oclif.manifest.json",
+    "prepack": "oclif-dev manifest && oclif-dev readme",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md"
+  }
+}
