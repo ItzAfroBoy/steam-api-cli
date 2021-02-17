@@ -1,18 +1,19 @@
+<center>
+
 steam-api-cli
 =============
 
-Steam on the command line
+Steam for nerds
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/steam-api-cli.svg)](https://npmjs.org/package/steam-api-cli)
-[![Downloads/week](https://img.shields.io/npm/dw/steam-api-cli.svg)](https://npmjs.org/package/steam-api-cli)
-[![License](https://img.shields.io/npm/l/steam-api-cli.svg)](https://github.com/ItzAfroBoy/steam-api-cli/blob/master/package.json)
+[![oclif](https://img.shields.io/badge/cli-oclif-%233B4554?style=for-the-badge&logo=heroku)](https://oclif.io)
+[![npm](https://img.shields.io/npm/v/steam-api-cli?color=%23FB8516&logo=npm&style=for-the-badge)](https://npmjs.org/package/steam-api-cli)
+[![npm](https://img.shields.io/npm/dw/steam-api-cli?color=%23ec3b2b&style=for-the-badge)](https://npmjs.org/package/steam-api-cli)
+[![GitHub](https://img.shields.io/github/license/ItzAfroBoy/steam-api-cli?color=%23161B22&logo=Github&style=for-the-badge)](https://github.com/ItzAfroBoy/steam-api-cli/blob/master/package.json)
 
-<!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
+</center>
+
 # Usage
+
 <!-- usage -->
 ```sh-session
 $ npm install -g steam-api-cli
@@ -26,17 +27,19 @@ USAGE
 ...
 ```
 <!-- usagestop -->
+
 # Commands
 <!-- commands -->
+
 * [`steam help [COMMAND]`](#steam-help-command)
 * [`steam inv`](#steam-inv)
 * [`steam user`](#steam-user)
 
 ## `steam help [COMMAND]`
 
-display help for steam
+Display `help` for `steam`
 
-```
+```sh-session
 USAGE
   $ steam help [COMMAND]
 
@@ -53,7 +56,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.1
 
 Grab your items from your inventory
 
-```
+```sh-session
 USAGE
   $ steam inv
 
@@ -70,7 +73,7 @@ _See code: [src/commands/inv.js](https://github.com/ItzAfroBoy/steam-api-cli/blo
 
 Describe the command here
 
-```
+```sh-session
 USAGE
   $ steam user
 

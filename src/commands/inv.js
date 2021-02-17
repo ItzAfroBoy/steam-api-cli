@@ -1,4 +1,7 @@
 //? Requiring node modules ⤵
+
+const { Currency, Application } = require('@node-steam/data');
+const { Market } = require('@node-steam/market-pricing');
 const { Command, flags } = require('@oclif/command');
 const { cli } = require('cli-ux');
 
@@ -10,10 +13,11 @@ const chalk = require('chalk');
 const conf = require('conf');
 const fs = require('fs');
 
+const API = new Market({ id: Application.CSGO, currency: Currency.USD });
 const invAPI = Object.create(InventoryApi);
 const config = new conf();
 
-config.set('key', '2C49CCD0F3246F55FBAE752F8EFD607E');
+config.set('key', 'C0991CA05C50EDFEFDD36A1D295C4270');
 
 //* The actual command ⬇
 class invCommand extends Command {
@@ -24,13 +28,13 @@ class invCommand extends Command {
 		const contextid = 2;
 		const count = 5000;
 		const language = 'english';
-
+		let prices = [];
+		let inv = [];
 		let steamid, appid, start_assetid, tradable, username;
 
 		if (flags.default) {
 			if (!config.get('steamid')) {
-				this
-					.warn(`You will need the steamID64 of the profile and the appID of the game to retrieve the invtntory
+				this.warn(`You will need the steamID64 of the profile and the appID of the game to retrieve the invetntory
         You can use https://steamid.io and input there profile URL
         This can be retrieved by visiting their profile and copy the URL
         Setting default settings`);
@@ -191,6 +195,7 @@ class invCommand extends Command {
 				})
 				.then((invRes) => {
 					clear();
+					cli.action.start('Collecting');
 					axios
 						.get(
 							`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${config.get(
@@ -198,19 +203,36 @@ class invCommand extends Command {
 							)}&steamids=${steamid}`
 						)
 						.then(async (res) => {
-							username = res.data.response.players[0].personaname;
-							this.log(chalk.blueBright(`Hello, ${username}`));
+							await this.log(chalk.blueBright(`Hello, ${res.data.response.players[0].personaname}`));
+							for await (let i of invRes.items) {
+								await inv.push(i.market_hash_name);
+							}
+						})
+						.then(async () => {
+							for await (let item of inv) {
+								if (item.includes('Graffiti')) {
+									await prices.push('Sticker');
+								} else {
+									let x = await API.getPrice(item);
+									await prices.push(x.price.median);
+								}
+							}
+						})
+						.then(async () => {
+							let j = 0;
 							let tree = cli.tree();
 							tree.insert('Inventory');
 
 							let subtree = cli.tree();
-							for (let i = 0; i < invRes.total; i++) {
-								subtree.insert(`${chalk.redBright(invRes.items[i].market_hash_name)}`);
-							}
-							tree.nodes.Inventory.insert(`${chalk.cyan(`${invRes.total} items`)}`, subtree);
 
+							for await (let yolo of inv) {
+								await subtree.insert(`${chalk.redBright(`${yolo} | ${prices[j]}`)}`);
+								await j++;
+							}
+
+							tree.nodes.Inventory.insert(`${chalk.cyan(`${invRes.total} items`)}`, subtree);
 							tree.display();
-							cli.wait(500);
+							cli.action.stop('Done');
 							process.exit();
 						});
 				});

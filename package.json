@@ -8,6 +8,8 @@
   },
   "bugs": "https://github.com/ItzAfroBoy/steam-api-cli/issues",
   "dependencies": {
+    "@node-steam/data": "^1.1.0",
+    "@node-steam/market-pricing": "^2.1.0",
     "@oclif/command": "^1.8.0",
     "@oclif/config": "^1.17.0",
     "@oclif/plugin-help": "^3.2.1",
@@ -16,9 +18,11 @@
     "clear": "^0.1.0",
     "cli-ux": "^5.5.1",
     "conf": "^9.0.0",
+    "node-fetch": "^2.6.1",
     "steam-inventory-api": "^2.0.10",
     "steam-market-parser": "^1.0.6",
-    "steam-market-pricing": "^2.0.0"
+    "steam-market-pricing": "^2.0.0",
+    "steam-price-api": "^2.0.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.26.0",
