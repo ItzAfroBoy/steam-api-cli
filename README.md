@@ -23,7 +23,7 @@ USAGE
 ```
 <!-- usagestop -->
 
-##Commands
+## Commands
 <!-- commands -->
 
 * [`steam help [COMMAND]`](#steam-help-command)
