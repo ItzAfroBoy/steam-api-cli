@@ -24,9 +24,58 @@ USAGE
 ...
 ```
 <!-- usagestop -->
+```sh-session
+$ npm install -g steam-api-cli
+$ steam COMMAND
+running command...
+$ steam (-v|--version|version)
+steam-api-cli/1.1.0 win32-x64 node-v14.15.4
+$ steam --help [COMMAND]
+USAGE
+  $ steam COMMAND
+...
+```
+<!-- usagestop -->
 
 # Commands
 <!-- commands -->
+* [`steam help [COMMAND]`](#steam-help-command)
+* [`steam inv`](#steam-inv)
+
+## `steam help [COMMAND]`
+
+display help for steam
+
+```
+USAGE
+  $ steam help [COMMAND]
+
+ARGUMENTS
+  COMMAND  command to show help for
+
+OPTIONS
+  --all  see all commands in CLI
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.1/src/commands/help.ts)_
+
+## `steam inv`
+
+Grab your items from your inventory
+
+```
+USAGE
+  $ steam inv
+
+OPTIONS
+  -d, --default      Use this to set the given user as the default
+  -g, --game=game    Change the default game setting
+  -t, --trade=trade  Change the default show-tradeable-item setting
+  -u, --user=user    Change the default steamID setting
+```
+
+_See code: [src/commands/inv.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v1.1.0/src/commands/inv.js)_
+<!-- commandsstop -->
 * [`steam help [COMMAND]`](#steam-help-command)
 * [`steam inv`](#steam-inv)
 
