@@ -1,11 +1,13 @@
-# steam-api-cli
+<h1 align='center'>steam-api-cli</h1>
 
-Steam for nerds
+<p align='center'>Steam for nerds</p>
 
-[![oclif](https://img.shields.io/badge/cli-oclif-%233B4554?style=for-the-badge&logo=heroku)](https://oclif.io)
-[![npm](https://img.shields.io/npm/v/steam-api-cli?color=%23FB8516&logo=npm&style=for-the-badge)](https://npmjs.org/package/steam-api-cli)
-[![npm](https://img.shields.io/npm/dw/steam-api-cli?color=%23ec3b2b&style=for-the-badge)](https://npmjs.org/package/steam-api-cli)
-[![GitHub](https://img.shields.io/github/license/ItzAfroBoy/steam-api-cli?color=%23161B22&logo=Github&style=for-the-badge)](https://github.com/ItzAfroBoy/steam-api-cli/blob/master/package.json)
+<p align='center'>
+  <img src='https://img.shields.io/badge/cli-oclif-%233B4554?style=for-the-badge&logo=heroku'>
+  <img src='https://img.shields.io/npm/v/steam-api-cli?color=%23FB8516&logo=npm&style=for-the-badge'>
+  <img src='https://img.shields.io/npm/dw/steam-api-cli?color=%23ec3b2b&style=for-the-badge'>
+  <img src='https://img.shields.io/github/license/ItzAfroBoy/steam-api-cli?color=%23161B22&logo=Github&style=for-the-badge'>
+</p>
 
 ## Usage
 
