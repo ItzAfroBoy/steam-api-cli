@@ -1,12 +1,11 @@
-//? Requiring node modules ⤵
+//* Dependencies
 
 const { Currency, Application } = require('@node-steam/data');
-const { Market } = require('@node-steam/market-pricing');
+const { Market, error } = require('@node-steam/market-pricing');
 const { Command, flags } = require('@oclif/command');
 const { cli } = require('cli-ux');
 
 const InventoryApi = require('steam-inventory-api');
-const market = require('steam-market-pricing');
 const axios = require('axios').default;
 const clear = require('clear');
 const chalk = require('chalk');
@@ -17,12 +16,10 @@ const API = new Market({ id: Application.CSGO, currency: Currency.USD });
 const invAPI = Object.create(InventoryApi);
 const config = new conf();
 
-config.set('key', 'C0991CA05C50EDFEFDD36A1D295C4270');
-
-//* The actual command ⬇
+//* Command
 class invCommand extends Command {
 	async run() {
-		const { flags } = this.parse(invCommand); //* Get flags
+		const { flags } = this.parse(invCommand);
 
 		//* Default definitions
 		const contextid = 2;
@@ -30,34 +27,43 @@ class invCommand extends Command {
 		const language = 'english';
 		let prices = [];
 		let inv = [];
-		let steamid, appid, start_assetid, tradable, username;
+		let steamid, appid, start_assetid, tradable, username, key;
 
 		if (flags.default) {
 			if (!config.get('steamid')) {
-				this.warn(`You will need the steamID64 of the profile and the appID of the game to retrieve the invetntory
-        You can use https://steamid.io and input there profile URL
-        This can be retrieved by visiting their profile and copy the URL
-        Setting default settings`);
+				this.warn('Please use a SteamID64, AppID and Steam API key');
+				await cli.wait(500);
+				this.warn('You can use https://steamid.io to get ID');
+				await cli.wait(550);
+				this.warn('AppID can be found in the properties of the game');
+				await cli.wait();
 
 				Number(
-					await cli.prompt('What is the steamID64?').then((one) => {
+					await cli.prompt('Please enter the steamID').then((one) => {
 						steamid = one;
 					})
 				);
+
 				Number(
-					await cli.prompt('What is the appID?').then((two) => {
+					await cli.prompt('Please enter the appID').then((two) => {
 						appid = Number(two);
 						start_assetid = Number(two);
 					})
 				);
-				await cli.prompt('Want to only show tradeable items? (y/n)', { default: 'n' }).then((three) => {
-					if (three == 'y') {
+
+				await cli.prompt('Please enter your API key').then((three) => {
+					key = three;
+				});
+
+				await cli.prompt('Want to only show tradeable items? (y/n)', { default: 'n' }).then((four) => {
+					if (four == 'y') {
 						tradable = true;
 					} else {
 						tradable = false;
 					}
 				});
 
+				config.set('key', key);
 				config.set('appid', appid);
 				config.set('steamid', steamid);
 				config.set('tradable', tradable);
@@ -81,30 +87,59 @@ class invCommand extends Command {
 					})
 					.then((invRes) => {
 						clear();
+						cli.action.start('Collecting', null, {stdout: true});
 						axios
 							.get(
-								`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${config.get(
-									'key'
-								)}&steamids=${steamid}`
+								`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${key}&steamids=${steamid}`
 							)
-							.then((res) => {
-								username = res.data.response.players[0].personaname;
-								this.log(chalk.blueBright(`Hello, ${username}`));
+							.then(async (res) => {
+								this.log(chalk.blueBright(`Hello, ${res.data.response.players[0].personaname}`));
+								for await (let i of invRes.items) {
+									inv.push(i.market_hash_name);
+								}
+							})
+							.then(async () => {
+								for await (let item of inv) {
+									if (item.includes('Graffiti')) {
+										prices.push('Sticker');
+									} else {
+										let x = await API.getPrice(item);
+										prices.push(`$${x.price.median}`);
+									}
+								}
+							})
+							.then(async () => {
+								let j = 0;
 								let tree = cli.tree();
 								tree.insert('Inventory');
 
 								let subtree = cli.tree();
-								for (let i = 0; i < invRes.total; i++) {
-									subtree.insert(`${chalk.redBright(invRes.items[i].market_hash_name)}`);
-								}
-								tree.nodes.Inventory.insert(`${chalk.cyan(`${invRes.total} items`)}`, subtree);
 
+								for await (let yolo of inv) {
+									subtree.insert(`${chalk.redBright(yolo)} | ${chalk.yellow(prices[j])}`);
+									j++;
+								}
+
+								tree.nodes.Inventory.insert(`${chalk.cyan(`${invRes.total} items`)}`, subtree);
 								tree.display();
-								cli.wait(500);
+								cli.action.stop('Done');
 								process.exit();
 							});
 					});
 			} else {
+				if (flags.user) {
+					config.set('steamid', flags.user);
+				} else if (flags.game) {
+					config.set('appid', flags.game);
+				} else if (flags.trade) {
+					if (flags.trade == 'true') {
+						config.set('tradable', true);
+					} else if (flags.trade == 'false') {
+						config.set('tradable', false);
+					}
+				}
+
+				key = config.get('key');
 				appid = config.get('appid');
 				steamid = config.get('steamid');
 				tradable = config.get('tradable');
@@ -128,123 +163,240 @@ class invCommand extends Command {
 					})
 					.then((invRes) => {
 						clear();
+						cli.action.start('Collecting', null, {stdout: true});
+						axios
+							.get(
+								`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${key}&steamids=${steamid}`
+							)
+							.then(async (res) => {
+								this.log(chalk.blueBright(`Hello, ${res.data.response.players[0].personaname}`));
+								for await (let i of invRes.items) {
+									inv.push(i.market_hash_name);
+								}
+							})
+							.then(async () => {
+								for await (let item of inv) {
+									if (item.includes('Graffiti')) {
+										prices.push('Sticker');
+									} else {
+										let x = await API.getPrice(item);
+										prices.push(`$${x.price.median}`);
+									}
+								}
+							})
+							.then(async () => {
+								let j = 0;
+								let tree = cli.tree();
+								tree.insert('Inventory');
+
+								let subtree = cli.tree();
+
+								for await (let yolo of inv) {
+									subtree.insert(`${chalk.redBright(yolo)} | ${chalk.hex('#F78464')(prices[j])}`);
+									j++;
+								}
+
+								tree.nodes.Inventory.insert(`${chalk.hex('#7FE0EB')(`${invRes.total} items`)}`, subtree);
+								tree.display();
+								cli.action.stop('Done');
+								process.exit();
+							});
+					});
+			}
+		} else {
+			if (!config.get('key')) {
+				this.warn('Please use a SteamID, AppID and Steam API key');
+				cli.wait(500);
+				this.warn('You can use https://steamid.io to get ID');
+				cli.wait(600);
+				this.warn('AppID can be found in the properties of the game');
+				cli.wait();
+
+				Number(
+					await cli.prompt('Please enter the SteamID').then((one) => {
+						steamid = one;
+					})
+				);
+
+				Number(
+					await cli.prompt('Please enter the appID?').then((two) => {
+						appid = Number(two);
+						start_assetid = Number(two);
+					})
+				);
+
+				await cli.prompt('Please enter your Steam API key').then((three) => {
+					key = three;
+					config.set('key', key);
+				});
+
+				await cli.prompt('Want to only show tradeable items? (y/n)', { default: 'n' }).then((four) => {
+					if (four == 'y') {
+						tradable = true;
+					} else {
+						tradable = false;
+					}
+				});
+
+				invAPI.init({
+					id: 'V.1',
+					proxyRepeat: 1,
+					maxUse: 25,
+					requestInterval: 60 * 1000
+				});
+
+				invAPI
+					.get({
+						appid,
+						contextid,
+						steamid,
+						start_assetid,
+						count,
+						language,
+						tradable
+					})
+					.then((invRes) => {
+						clear();
+						cli.action.start('Collecting', null, {stdout: true});
+						axios
+							.get(
+								`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${key}&steamids=${steamid}`
+							)
+							.then(async (res) => {
+								this.log(chalk.blueBright(`Hello, ${res.data.response.players[0].personaname}`));
+								for await (let i of invRes.items) {
+									inv.push(i.market_hash_name);
+								}
+							})
+							.then(async () => {
+								for await (let item of inv) {
+									if (item.includes('Graffiti')) {
+										prices.push('Sticker');
+									} else {
+										let x = await API.getPrice(item);
+										prices.push(`$${x.price.median}`);
+									}
+								}
+							})
+							.then(async () => {
+								let j = 0;
+								let tree = cli.tree();
+								tree.insert('Inventory');
+
+								let subtree = cli.tree();
+
+								for await (let yolo of inv) {
+									subtree.insert(`${chalk.redBright(yolo)} | ${chalk.hex('#F78464')(prices[j])}`);
+									j++;
+								}
+
+								tree.nodes.Inventory.insert(`${chalk.cyan(`${invRes.total} items`)}`, subtree);
+								tree.display();
+								cli.action.stop('Done');
+								process.exit();
+							});
+					});
+			} else {
+				this.warn('Please use a SteamID and AppID to use this CLI');
+				cli.wait(500);
+				this.warn('You can use https://steamid.io to get ID');
+				cli.wait(600);
+				this.warn('AppID can be found in the properties of the game');
+				cli.wait();
+
+				Number(
+					await cli.prompt('Please enter the SteamID').then((one) => {
+						steamid = one;
+					})
+				);
+
+				Number(
+					await cli.prompt('Please enter the appID?').then((two) => {
+						appid = Number(two);
+						start_assetid = Number(two);
+					})
+				);
+
+				await cli.prompt('Want to only show tradeable items? (y/n)', { default: 'n' }).then((three) => {
+					if (three == 'y') {
+						tradable = true;
+					} else {
+						tradable = false;
+					}
+				});
+
+				invAPI.init({
+					id: 'V.1',
+					proxyRepeat: 1,
+					maxUse: 25,
+					requestInterval: 60 * 1000
+				});
+
+				invAPI
+					.get({
+						appid,
+						contextid,
+						steamid,
+						start_assetid,
+						count,
+						language,
+						tradable
+					})
+					.then((invRes) => {
+						clear();
+						cli.action.start('Collecting', null, {stdout: true});
 						axios
 							.get(
 								`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${config.get(
 									'key'
 								)}&steamids=${steamid}`
 							)
-							.then((res) => {
-								username = res.data.response.players[0].personaname;
-								this.log(chalk.blueBright(`Hello, ${username}`));
+							.then(async (res) => {
+								this.log(chalk.blueBright(`Hello, ${res.data.response.players[0].personaname}`));
+								for await (let i of invRes.items) {
+									inv.push(i.market_hash_name);
+								}
+							})
+							.then(async () => {
+								for await (let item of inv) {
+									if (item.includes('Graffiti')) {
+										prices.push('Sticker');
+									} else {
+										let x = await API.getPrice(item);
+										prices.push(`$${x.price.median}`);
+									}
+								}
+							})
+							.then(async () => {
+								let j = 0;
 								let tree = cli.tree();
 								tree.insert('Inventory');
 
 								let subtree = cli.tree();
-								for (let i = 0; i < invRes.total; i++) {
-									subtree.insert(`${chalk.redBright(invRes.items[i].market_hash_name)}`);
-								}
-								tree.nodes.Inventory.insert(`${chalk.cyan(`${invRes.total} items`)}`, subtree);
 
+								for await (let yolo of inv) {
+									subtree.insert(`${chalk.redBright(yolo)} | ${chalk.yellow(prices[j])}`);
+									j++;
+								}
+
+								tree.nodes.Inventory.insert(`${chalk.cyan(`${invRes.total} items`)}`, subtree);
 								tree.display();
-								cli.wait(500);
+								cli.action.stop('Done');
 								process.exit();
 							});
 					});
 			}
-		} else {
-			this.warn('You will need the steamID64 of the profile and the appID of the game to retrieve the inventory');
-			this.warn('You can use https://steamid.io and input there profile URL');
-			this.warn('This can be retrieved by visiting their profile and copy the URL');
-
-			Number(
-				await cli.prompt('What is the steamID64?').then((one) => {
-					steamid = one;
-				})
-			);
-			Number(
-				await cli.prompt('What is the appID?').then((two) => {
-					appid = Number(two);
-					start_assetid = Number(two);
-				})
-			);
-			await cli.prompt('Want to only show tradeable items? (y/n)', { default: 'n' }).then((three) => {
-				if (three == 'y') {
-					tradable = true;
-				} else {
-					tradable = false;
-				}
-			});
-
-			invAPI.init({
-				id: 'V.1',
-				proxyRepeat: 1,
-				maxUse: 25,
-				requestInterval: 60 * 1000
-			});
-
-			invAPI
-				.get({
-					appid,
-					contextid,
-					steamid,
-					start_assetid,
-					count,
-					language,
-					tradable
-				})
-				.then((invRes) => {
-					clear();
-					cli.action.start('Collecting');
-					axios
-						.get(
-							`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${config.get(
-								'key'
-							)}&steamids=${steamid}`
-						)
-						.then(async (res) => {
-							await this.log(chalk.blueBright(`Hello, ${res.data.response.players[0].personaname}`));
-							for await (let i of invRes.items) {
-								await inv.push(i.market_hash_name);
-							}
-						})
-						.then(async () => {
-							for await (let item of inv) {
-								if (item.includes('Graffiti')) {
-									await prices.push('Sticker');
-								} else {
-									let x = await API.getPrice(item);
-									await prices.push(x.price.median);
-								}
-							}
-						})
-						.then(async () => {
-							let j = 0;
-							let tree = cli.tree();
-							tree.insert('Inventory');
-
-							let subtree = cli.tree();
-
-							for await (let yolo of inv) {
-								await subtree.insert(`${chalk.redBright(`${yolo} | ${prices[j]}`)}`);
-								await j++;
-							}
-
-							tree.nodes.Inventory.insert(`${chalk.cyan(`${invRes.total} items`)}`, subtree);
-							tree.display();
-							cli.action.stop('Done');
-							process.exit();
-						});
-				});
 		}
 	}
 }
 
+//* Description
 invCommand.description = `Grab your items from your inventory`;
 
+//* Flags
 invCommand.flags = {
 	default: flags.boolean({ char: 'd', description: 'Use this to set the given user as the default' }),
-	user: flags.integer({ char: 'u', description: 'Change the default steamID64 setting' }),
+	user: flags.integer({ char: 'u', description: 'Change the default steamID setting' }),
 	game: flags.integer({ char: 'g', description: 'Change the default game setting' }),
 	trade: flags.string({ char: 't', description: 'Change the default show-tradeable-item setting' })
 };
