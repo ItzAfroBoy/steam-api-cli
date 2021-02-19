@@ -7,8 +7,14 @@
   <a href='https://npmjs.org/package/steam-api-cli'><img src='https://img.shields.io/npm/v/steam-api-cli?color=%23FB8516&logo=npm&style=for-the-badge'></a>
   <a href='https://npmjs.org/package/steam-api-cli'><img src='https://img.shields.io/npm/dw/steam-api-cli?color=%23ec3b2b&style=for-the-badge'></a>
   <a href='https://npmjs.org/package/steam-api-cli'><img src='https://img.shields.io/github/license/ItzAfroBoy/steam-api-cli?color=%23161B22&logo=Github&style=for-the-badge'></a>
+  <a href='https://makeapullrequest.com'><img src='https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge'></a>
 </p>
 
+<!-- toc -->
+* [Usage](#usage)
+* [Commands](#commands)
+* [Updates](#updates)
+<!-- tocstop -->
 # Usage
 
 <!-- usage -->
@@ -24,8 +30,8 @@ USAGE
 ...
 ```
 <!-- usagestop -->
-
 # Commands
+
 <!-- commands -->
 * [`steam help [COMMAND]`](#steam-help-command)
 * [`steam inv`](#steam-inv)
@@ -65,12 +71,12 @@ OPTIONS
 _See code: [src/commands/inv.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v1.1.0/src/commands/inv.js)_
 <!-- commandsstop -->
 
-## Updates
+# Updates
 
 This current version of `steam-api-cli` is a first launch  
 and all features have not been implemented yet but are in progress  
 
-### Future
+## Future
 
 ```markdown
 * Retrieve info of Steam user
@@ -78,9 +84,42 @@ and all features have not been implemented yet but are in progress
 * Launch games
 ```
 
-### Change Log
+## Change Log
 
 ```markdown
+* 1.1.1 Error handling and Info update
 * 1.1.0 Pricing available for CS:GO
 * 1.0.0 Inital Release
+```
+
+## Contribution
+
+Everyone is absolutly welcome to contribute to this project  
+Just fork it, make changes and create a PR and I'll check it out
+
+### License
+
+```license
+MIT License
+
+Copyright (c) 2021 ItzAfroBoy
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
 ```

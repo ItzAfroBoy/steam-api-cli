@@ -38,11 +38,18 @@ class invCommand extends Command {
 				this.warn('AppID can be found in the properties of the game');
 				await cli.wait();
 
-				Number(
-					await cli.prompt('Please enter the steamID').then((one) => {
-						steamid = one;
-					})
-				);
+				for (let i = 1; i > 0; i++) {
+					Number(
+						await cli.prompt('Please enter the SteamID').then((one) => {
+							steamid = one;
+						})
+					);
+					if (String(steamid).length == 17) {
+						i = -10;
+					} else if (String(steamid).length < 17 || String(steamid).length > 17) {
+						this.warn(`Try Again! Length should be 17 numbers (${String(steamid).length})`);
+					}
+				}
 
 				Number(
 					await cli.prompt('Please enter the appID').then((two) => {
@@ -87,7 +94,7 @@ class invCommand extends Command {
 					})
 					.then((invRes) => {
 						clear();
-						cli.action.start('Collecting', null, {stdout: true});
+						cli.action.start('Collecting');
 						axios
 							.get(
 								`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${key}&steamids=${steamid}`
@@ -125,12 +132,17 @@ class invCommand extends Command {
 								cli.action.stop('Done');
 								process.exit();
 							});
+					})
+					.catch((error) => {
+						this.warn(`Something is wrong:\n${error}`);
 					});
 			} else {
 				if (flags.user) {
 					config.set('steamid', flags.user);
 				} else if (flags.game) {
 					config.set('appid', flags.game);
+				} else if (flags.key) {
+					config.set('key', flags.key);
 				} else if (flags.trade) {
 					if (flags.trade == 'true') {
 						config.set('tradable', true);
@@ -163,7 +175,7 @@ class invCommand extends Command {
 					})
 					.then((invRes) => {
 						clear();
-						cli.action.start('Collecting', null, {stdout: true});
+						cli.action.start('Collecting');
 						axios
 							.get(
 								`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${key}&steamids=${steamid}`
@@ -196,27 +208,40 @@ class invCommand extends Command {
 									j++;
 								}
 
-								tree.nodes.Inventory.insert(`${chalk.hex('#7FE0EB')(`${invRes.total} items`)}`, subtree);
+								tree.nodes.Inventory.insert(
+									`${chalk.hex('#7FE0EB')(`${invRes.total} items`)}`,
+									subtree
+								);
 								tree.display();
 								cli.action.stop('Done');
 								process.exit();
 							});
+					})
+					.catch((error) => {
+						this.warn(`Something is wrong:\n${error}`);
 					});
 			}
 		} else {
 			if (!config.get('key')) {
 				this.warn('Please use a SteamID, AppID and Steam API key');
-				cli.wait(500);
+				await cli.wait(500);
 				this.warn('You can use https://steamid.io to get ID');
-				cli.wait(600);
+				await cli.wait(600);
 				this.warn('AppID can be found in the properties of the game');
-				cli.wait();
+				await cli.wait();
 
-				Number(
-					await cli.prompt('Please enter the SteamID').then((one) => {
-						steamid = one;
-					})
-				);
+				for (let i = 1; i > 0; i++) {
+					Number(
+						await cli.prompt('Please enter the SteamID').then((one) => {
+							steamid = one;
+						})
+					);
+					if (String(steamid).length == 17) {
+						i = -10;
+					} else if (String(steamid).length < 17 || String(steamid).length > 17) {
+						this.warn(`Try Again! Length should be 17 numbers (${String(steamid).length})`);
+					}
+				}
 
 				Number(
 					await cli.prompt('Please enter the appID?').then((two) => {
@@ -257,7 +282,7 @@ class invCommand extends Command {
 					})
 					.then((invRes) => {
 						clear();
-						cli.action.start('Collecting', null, {stdout: true});
+						cli.action.start('Collecting');
 						axios
 							.get(
 								`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${key}&steamids=${steamid}`
@@ -295,20 +320,30 @@ class invCommand extends Command {
 								cli.action.stop('Done');
 								process.exit();
 							});
+					})
+					.catch((error) => {
+						this.warn(`Something is wrong:\n${error}`);
 					});
 			} else {
 				this.warn('Please use a SteamID and AppID to use this CLI');
-				cli.wait(500);
+				await cli.wait(500);
 				this.warn('You can use https://steamid.io to get ID');
-				cli.wait(600);
+				await cli.wait(600);
 				this.warn('AppID can be found in the properties of the game');
-				cli.wait();
+				await cli.wait();
 
-				Number(
-					await cli.prompt('Please enter the SteamID').then((one) => {
-						steamid = one;
-					})
-				);
+				for (let i = 1; i > 0; i++) {
+					Number(
+						await cli.prompt('Please enter the SteamID').then((one) => {
+							steamid = one;
+						})
+					);
+					if (String(steamid).length == 17) {
+						i = -10;
+					} else if (String(steamid).length < 17 || String(steamid).length > 17) {
+						this.warn(`Try Again! Length should be 17 numbers (${String(steamid).length})`);
+					}
+				}
 
 				Number(
 					await cli.prompt('Please enter the appID?').then((two) => {
@@ -344,7 +379,7 @@ class invCommand extends Command {
 					})
 					.then((invRes) => {
 						clear();
-						cli.action.start('Collecting', null, {stdout: true});
+						cli.action.start('Collecting');
 						axios
 							.get(
 								`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=${config.get(
@@ -384,6 +419,9 @@ class invCommand extends Command {
 								cli.action.stop('Done');
 								process.exit();
 							});
+					})
+					.catch((error) => {
+						this.warn(`Something is wrong:\n${error}`);
 					});
 			}
 		}
@@ -398,9 +436,8 @@ invCommand.flags = {
 	default: flags.boolean({ char: 'd', description: 'Use this to set the given user as the default' }),
 	user: flags.integer({ char: 'u', description: 'Change the default steamID setting' }),
 	game: flags.integer({ char: 'g', description: 'Change the default game setting' }),
-	trade: flags.string({ char: 't', description: 'Change the default show-tradeable-item setting' })
+	trade: flags.string({ char: 't', description: 'Change the default show-tradeable-item setting' }),
+	key: flags.string({ char: 'k', description: 'Change the current Steam API Key setting' })
 };
-
-invCommand.strict = false;
 
 module.exports = invCommand;
