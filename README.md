@@ -23,7 +23,7 @@ $ npm install -g steam-api-cli
 $ steam COMMAND
 running command...
 $ steam (-v|--version|version)
-steam-api-cli/1.1.0 win32-x64 node-v14.15.4
+steam-api-cli/1.1.1 win32-x64 node-v14.15.4
 $ steam --help [COMMAND]
 USAGE
   $ steam COMMAND
@@ -64,11 +64,12 @@ USAGE
 OPTIONS
   -d, --default      Use this to set the given user as the default
   -g, --game=game    Change the default game setting
+  -k, --key=key      Change the current Steam API Key setting
   -t, --trade=trade  Change the default show-tradeable-item setting
   -u, --user=user    Change the default steamID setting
 ```
 
-_See code: [src/commands/inv.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v1.1.0/src/commands/inv.js)_
+_See code: [src/commands/inv.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v1.1.1/src/commands/inv.js)_
 <!-- commandsstop -->
 
 # Updates
