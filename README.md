@@ -105,6 +105,7 @@ and all features have not been implemented yet but are in progress
 ## Change Log
 
 ```markdown
+* 1.2.1 Readme bug fixes
 * 1.2.0 Code clean up and new error handling  
 * 1.1.1 Error handling and Info update
 * 1.1.0 Pricing available for CS:GO
