@@ -1,7 +1,7 @@
 {
   "name": "steam-api-cli",
   "description": "Steam for nerds",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": "Brett @ItzAfroBoy",
   "bin": {
     "steam": "./bin/run"
