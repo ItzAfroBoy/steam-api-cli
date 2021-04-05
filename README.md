@@ -15,9 +15,25 @@
 * [Commands](#commands)
 * [Updates](#updates)
 <!-- tocstop -->
+* [Usage](#usage)
+* [Commands](#commands)
+* [Updates](#updates)
+<!-- tocstop -->
 # Usage
 
 <!-- usage -->
+```sh-session
+$ npm install -g steam-api-cli
+$ steam COMMAND
+running command...
+$ steam (-v|--version|version)
+steam-api-cli/1.2.0 win32-x64 node-v14.16.0
+$ steam --help [COMMAND]
+USAGE
+  $ steam COMMAND
+...
+```
+<!-- usagestop -->
 ```sh-session
 $ npm install -g steam-api-cli
 $ steam COMMAND
@@ -33,6 +49,61 @@ USAGE
 # Commands
 
 <!-- commands -->
+* [`steam help [COMMAND]`](#steam-help-command)
+* [`steam steam inv [-d --default [-u --user <ID>] [-g --game <ID>] [-t --trade <true> || <false>] [-k --key <key>] ]`](#steam-steam-inv--d---default--u---user-id--g---game-id--t---trade-true--false--k---key-key-)
+
+## `steam help [COMMAND]`
+
+display help for steam
+
+```
+USAGE
+  $ steam help [COMMAND]
+
+ARGUMENTS
+  COMMAND  command to show help for
+
+OPTIONS
+  --all  see all commands in CLI
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
+
+## `steam steam inv [-d --default [-u --user <ID>] [-g --game <ID>] [-t --trade <true> || <false>] [-k --key <key>] ]`
+
+Grab items from a Steam Inventory
+
+```
+USAGE
+  $ steam steam inv [-d --default [-u --user <ID>] [-g --game <ID>] [-t --trade <true> || <false>] [-k --key <key>] ]
+
+OPTIONS
+  -d, --default      Use this to set the given user as the default
+  -g, --game=game    Change the default game setting
+  -k, --key=key      Change the current Steam API Key setting
+  -t, --trade=trade  Change the default show-tradable-item setting
+  -u, --user=user    Change the default steamID setting
+
+DESCRIPTION
+  Grab items from a Steam Inventory
+  You will need to use:
+  * Steam API Key
+  * Steam ID
+  * Game ID
+
+  Note: Your API Key is will be stored no matter how the CLI is run.
+  	  This is for easier use and it is not shared or used outside of
+  	  the program on this system.
+
+EXAMPLES
+
+  $ steam inv //* Runs using one-time settings
+  $ steam inv -d //* Runs using default settings
+  $ steam inv -d --game 440 //* Runs but changes default game to TF2
+```
+
+_See code: [src/commands/inv.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v1.2.0/src/commands/inv.js)_
+<!-- commandsstop -->
 * [`steam help [COMMAND]`](#steam-help-command)
 * [`steam inv`](#steam-inv)
 
