@@ -439,11 +439,9 @@ You will need to use:
 * Game ID
 
 Note: Your API Key is will be stored no matter how the CLI is run.
-	  This is for easier use and it is not shared or used outside of
-	  the program on this system.
+This is for easier use and it is not shared or used outside of
+the program on this system.
 `;
-
-invCommand.usage = `steam inv [-d --default [-u --user <ID>] [-g --game <ID>] [-t --trade <true> || <false>] [-k --key <key>] ]`;
 
 invCommand.examples = `
 $ steam inv //* Runs using one-time settings
