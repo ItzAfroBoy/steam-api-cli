@@ -11,10 +11,20 @@
 </p>
 
 <!-- toc -->
+* [Requirements](#requirements)
 * [Usage](#usage)
 * [Commands](#commands)
 * [Updates](#updates)
 <!-- tocstop -->
+
+# Requirements
+
+To use `steam-api-cli` you will need to have the following:
+
+* [A Steam API Key](https://steamcommunity.com/dev/apikey)
+* [A SteamID](https://steamid.io/)
+* An appID
+
 
 # Usage
 <!-- usage -->
@@ -72,9 +82,9 @@ OPTIONS
 
 EXAMPLES
 
-  $ steam inv //* Runs using one-time settings
-  $ steam inv -d //* Runs using default settings
-  $ steam inv -d --game 440 //* Runs but changes default game to TF2
+  $ steam inv
+  $ steam inv -d
+  $ steam inv -d --game 440
 ```
 
 _See code: [src/commands/inv.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v2.0.0/src/commands/inv.js)_
@@ -110,14 +120,15 @@ and all features have not been implemented yet but are in progress
 ## Future
 
 ```markdown
-* Retrieve info of Steam user
-* View owned games
-* Launch games
+* [x] Retrieve info of Steam user
+* [ ] View owned games
+* [ ] Launch games
 ```
 
 ## Change Log
 
 ```markdown
+* 2.0.0 Rewrite of program and new `user` command
 * 1.2.1 Readme bug fixes
 * 1.2.0 Code clean up and new error handling  
 * 1.1.1 Error handling and Info update

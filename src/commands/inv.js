@@ -103,9 +103,9 @@ invCommand.description = `Grab items from a Steam Inventory`;
 
 //* Examples *//
 invCommand.examples = `
-$ steam inv //* Runs using one-time settings
-$ steam inv -d //* Runs using default settings
-$ steam inv -d --game 440 //* Runs but changes default game to TF2
+$ steam inv
+$ steam inv -d
+$ steam inv -d --game 440
 `;
 
 //* Flags *//
