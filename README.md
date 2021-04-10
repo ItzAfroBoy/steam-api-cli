@@ -1,7 +1,5 @@
 <h1 align='center'>Steam CLI</h1>
-
 <p align='center'>Steam for nerds</p>
-
 <p align='center'>
   <a href='https://oclif.io'><img src='https://img.shields.io/badge/cli-oclif-%233B4554?style=for-the-badge&logo=heroku'></a>
   <a href='https://npmjs.org/package/steam-api-cli'><img src='https://img.shields.io/npm/v/steam-api-cli?color=%23FB8516&logo=npm&style=for-the-badge'></a>
@@ -24,7 +22,6 @@ To use `steam-api-cli` you will need to have the following:
 * [A Steam API Key](https://steamcommunity.com/dev/apikey)
 * [A SteamID](https://steamid.io/)
 * An appID
-
 
 # Usage
 <!-- usage -->
@@ -111,7 +108,6 @@ EXAMPLES
 
 _See code: [src/commands/user.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v2.0.0/src/commands/user.js)_
 <!-- commandsstop -->
-
 # Updates
 
 This current version of `steam-api-cli` is a first launch  
