@@ -23,7 +23,7 @@ $ npm install -g steam-api-cli
 $ steam COMMAND
 running command...
 $ steam (-v|--version|version)
-steam-api-cli/1.2.1 win32-x64 node-v14.16.0
+steam-api-cli/2.0.0 win32-x64 node-v14.16.0
 $ steam --help [COMMAND]
 USAGE
   $ steam COMMAND
@@ -70,13 +70,6 @@ OPTIONS
   -t, --trade=trade      Change the default show-tradable-item setting
   -u, --user=user        Change the default steamID setting
 
-DESCRIPTION
-  Grab items from a Steam Inventory
-  You will need to use:
-  * Steam API Key
-  * Steam ID
-  * Game ID
-
 EXAMPLES
 
   $ steam inv //* Runs using one-time settings
@@ -84,25 +77,29 @@ EXAMPLES
   $ steam inv -d --game 440 //* Runs but changes default game to TF2
 ```
 
-_See code: [src/commands/inv.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v1.2.1/src/commands/inv.js)_
+_See code: [src/commands/inv.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v2.0.0/src/commands/inv.js)_
 
 ## `steam user`
 
-Describe the command here
+Grabs your Steam profile data
 
 ```
 USAGE
   $ steam user
 
 OPTIONS
-  -n, --name=name  name to print
+  -d, --default    Use this to set the given user as the default
+  -k, --key=key    Change the current Steam API Key
+  -u, --user=user  Change the default steamID setting
 
-DESCRIPTION
-  ...
-  Extra documentation goes here
+EXAMPLES
+
+  $ steam user
+  $ steam user -d
+  $ steam user -d -u 76561198378367745
 ```
 
-_See code: [src/commands/user.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v1.2.1/src/commands/user.js)_
+_See code: [src/commands/user.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v2.0.0/src/commands/user.js)_
 <!-- commandsstop -->
 
 # Updates
