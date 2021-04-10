@@ -17,8 +17,7 @@
 <!-- tocstop -->
 
 # Usage
- 
- <!-- usage -->
+<!-- usage -->
 ```sh-session
 $ npm install -g steam-api-cli
 $ steam COMMAND
@@ -31,10 +30,12 @@ USAGE
 ...
 ```
 <!-- usagestop -->
+
 # Commands
 <!-- commands -->
 * [`steam help [COMMAND]`](#steam-help-command)
 * [`steam inv`](#steam-inv)
+* [`steam user`](#steam-user)
 
 ## `steam help [COMMAND]`
 
@@ -62,11 +63,12 @@ USAGE
   $ steam inv
 
 OPTIONS
-  -d, --default      Use this to set the given user as the default
-  -g, --game=game    Change the default game setting
-  -k, --key=key      Change the current Steam API Key setting
-  -t, --trade=trade  Change the default show-tradable-item setting
-  -u, --user=user    Change the default steamID setting
+  -c, --context=context  Changes the default context id setting
+  -d, --default          Use this to set the given user as the default
+  -g, --game=game        Change the default game setting
+  -k, --key=key          Change the current Steam API Key
+  -t, --trade=trade      Change the default show-tradable-item setting
+  -u, --user=user        Change the default steamID setting
 
 DESCRIPTION
   Grab items from a Steam Inventory
@@ -74,10 +76,6 @@ DESCRIPTION
   * Steam API Key
   * Steam ID
   * Game ID
-
-  Note: Your API Key is will be stored no matter how the CLI is run.
-  This is for easier use and it is not shared or used outside of
-  the program on this system.
 
 EXAMPLES
 
@@ -87,6 +85,24 @@ EXAMPLES
 ```
 
 _See code: [src/commands/inv.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v1.2.1/src/commands/inv.js)_
+
+## `steam user`
+
+Describe the command here
+
+```
+USAGE
+  $ steam user
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/user.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v1.2.1/src/commands/user.js)_
 <!-- commandsstop -->
 
 # Updates
