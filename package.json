@@ -1,7 +1,7 @@
 {
   "name": "steam-api-cli",
-  "description": "Steam on the command line",
-  "version": "1.0.0",
+  "description": "Steam for nerds",
+  "version": "1.2.1",
   "author": "Brett @ItzAfroBoy",
   "bin": {
     "steam": "./bin/run"
@@ -12,17 +12,13 @@
     "@node-steam/market-pricing": "^2.1.0",
     "@oclif/command": "^1.8.0",
     "@oclif/config": "^1.17.0",
-    "@oclif/plugin-help": "^3.2.1",
+    "@oclif/plugin-help": "^3.2.2",
     "axios": "^0.21.1",
     "chalk": "^4.1.0",
     "clear": "^0.1.0",
     "cli-ux": "^5.5.1",
-    "conf": "^9.0.0",
-    "node-fetch": "^2.6.1",
-    "steam-inventory-api": "^2.0.10",
-    "steam-market-parser": "^1.0.6",
-    "steam-market-pricing": "^2.0.0",
-    "steam-price-api": "^2.0.0"
+    "conf": "^9.0.2",
+    "steam-inventory-api": "^2.0.10"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.26.0",
@@ -56,6 +52,7 @@
     "postpack": "rimraf oclif.manifest.json",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "test": "echo NO TESTS",
-    "version": "oclif-dev readme && git add README.md"
+    "version": "oclif-dev readme && git add README.md",
+    "binaries": "pkg -t -o ../.tarballs/steam ."
   }
 }
