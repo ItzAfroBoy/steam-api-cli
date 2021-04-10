@@ -1,7 +1,5 @@
 <h1 align='center'>Steam CLI</h1>
-
 <p align='center'>Steam for nerds</p>
-
 <p align='center'>
   <a href='https://oclif.io'><img src='https://img.shields.io/badge/cli-oclif-%233B4554?style=for-the-badge&logo=heroku'></a>
   <a href='https://npmjs.org/package/steam-api-cli'><img src='https://img.shields.io/npm/v/steam-api-cli?color=%23FB8516&logo=npm&style=for-the-badge'></a>
@@ -19,6 +17,7 @@
 # Usage
  
  <!-- usage -->
+
 ```sh-session
 $ npm install -g steam-api-cli
 $ steam COMMAND
@@ -31,12 +30,14 @@ USAGE
 ...
 ```
 <!-- usagestop -->
+
 # Commands
+
 <!-- commands -->
 * [`steam help [COMMAND]`](#steam-help-command)
 * [`steam inv`](#steam-inv)
 
-## `steam help [COMMAND]`
+### `steam help [COMMAND]`
 
 display help for steam
 
@@ -53,7 +54,7 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
 
-## `steam inv`
+### `steam inv`
 
 Grab items from a Steam Inventory
 
@@ -89,7 +90,9 @@ EXAMPLES
 _See code: [src/commands/inv.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v1.2.1/src/commands/inv.js)_
 <!-- commandsstop -->
 
+
 # Updates
+
 
 This current version of `steam-api-cli` is a first launch  
 and all features have not been implemented yet but are in progress  
