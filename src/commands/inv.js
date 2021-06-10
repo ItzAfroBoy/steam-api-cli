@@ -2,8 +2,8 @@
 const { Command, flags } = require('@oclif/command');
 const { cli } = require('cli-ux');
 
+const { flagsCheck, grabInv } = require('../utils');
 const conf = require('conf').default;
-const utils = require('../utils');
 
 const config = new conf();
 
@@ -16,7 +16,7 @@ class invCommand extends Command {
 
 		if (flags.default) {
 			if (config.has('steamid')) {
-				utils.flagsCheck(flags, config);
+				flagsCheck(flags, config);
 
 				contextid = config.get('contextid');
 				tradable = config.get('tradable');
@@ -24,7 +24,7 @@ class invCommand extends Command {
 				appid = config.get('appid');
 				key = config.get('key');
 
-				utils.grabInv(appid, contextid, steamid, tradable, key);
+				grabInv(appid, contextid, steamid, tradable, key);
 			} else {
 				for (let i = 1; i > 0; i++) {
 					await cli.prompt('Please enter the SteamID').then((one) => (steamid = one));
@@ -57,7 +57,7 @@ class invCommand extends Command {
 				config.set('appid', appid);
 				config.set('key', key);
 
-				utils.grab(appid, contextid, steamid, tradable, key);
+				grabInv(appid, contextid, steamid, tradable, key);
 			}
 		} else {
 			for (let i = 1; i > 0; i++) {
@@ -93,7 +93,7 @@ class invCommand extends Command {
 				}
 			});
 
-			utils.grab(appid, contextid, steamid, tradable, key);
+			grabInv(appid, contextid, steamid, tradable, key);
 		}
 	}
 }

@@ -18,6 +18,7 @@
     "clear": "^0.1.0",
     "cli-ux": "^5.5.1",
     "conf": "^9.0.2",
+    "crypto-js": "^4.0.0",
     "steam-inventory-api": "^2.0.10"
   },
   "devDependencies": {

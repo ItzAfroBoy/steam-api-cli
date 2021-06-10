@@ -3,7 +3,7 @@ const { Command, flags } = require('@oclif/command');
 const { cli } = require('cli-ux');
 
 const conf = require('conf').default;
-const utils = require('../utils');
+const { flagsCheck, grabUser} = require('../utils');
 
 const config = new conf();
 
@@ -16,12 +16,12 @@ class UserCommand extends Command {
 
 		if (flags.default) {
 			if (config.has('steamid')) {
-				utils.flagsCheck(flags, config);
+				flagsCheck(flags, config);
 
 				steamid = config.get('steamid');
 				key = config.get('key');
 
-				utils.grabUser(steamid, key);
+				grabUser(steamid, key);
 			} else {
 				for (let i = 1; i > 0; i++) {
 					await cli.prompt('Please enter the SteamID').then((one) => (steamid = one));
@@ -37,7 +37,7 @@ class UserCommand extends Command {
 				config.set('steamid', steamid);
 				config.set('key', key);
 
-				utils.grabUser(steamid, key);
+				grabUser(steamid, key);
 			}
 		} else {
 			for (let i = 1; i > 0; i++) {
@@ -57,7 +57,7 @@ class UserCommand extends Command {
 				key = config.get('key');
 			}
 
-			utils.grabUser(steamid, key);
+			grabUser(steamid, key);
 		}
 	}
 }
