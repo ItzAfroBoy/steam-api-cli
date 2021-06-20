@@ -30,7 +30,7 @@ $ npm install -g steam-api-cli
 $ steam COMMAND
 running command...
 $ steam (-v|--version|version)
-steam-api-cli/2.0.1 win32-x64 node-v14.16.0
+steam-api-cli/3.0.0 win32-x64 node-v14.16.1
 $ steam --help [COMMAND]
 USAGE
   $ steam COMMAND
@@ -42,8 +42,9 @@ USAGE
 # Commands
 <!-- commands -->
 * [`steam help [COMMAND]`](#steam-help-command)
-* [`steam inv`](#steam-inv)
 * [`steam user`](#steam-user)
+* [`steam user:all`](#steam-userall)
+* [`steam user:inv`](#steam-userinv)
 
 ## `steam help [COMMAND]`
 
@@ -61,31 +62,6 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.2/src/commands/help.ts)_
-
-## `steam inv`
-
-Grab items from a Steam Inventory
-
-```
-USAGE
-  $ steam inv
-
-OPTIONS
-  -c, --context=context  Changes the default context id setting
-  -d, --default          Use this to set the given user as the default
-  -g, --game=game        Change the default game setting
-  -k, --key=key          Change the current Steam API Key
-  -t, --trade=trade      Change the default show-tradable-item setting
-  -u, --user=user        Change the default steamID setting
-
-EXAMPLES
-
-  $ steam inv
-  $ steam inv -d
-  $ steam inv -d --game 440
-```
-
-_See code: [src/commands/inv.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v2.0.1/src/commands/inv.js)_
 
 ## `steam user`
 
@@ -107,7 +83,57 @@ EXAMPLES
   $ steam user -d -u 76561198378367745
 ```
 
-_See code: [src/commands/user.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v2.0.1/src/commands/user.js)_
+_See code: [src/commands/user/index.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v3.0.0/src/commands/user/index.js)_
+
+## `steam user:all`
+
+Grabs items and info about a user
+
+```
+USAGE
+  $ steam user:all
+
+OPTIONS
+  -c, --context=context  Changes the default context id setting
+  -d, --default          Use this to set the given user as the default
+  -g, --game=game        Change the default game setting
+  -k, --key=key          Change the current Steam API Key
+  -t, --trade=trade      Change the default show-tradable-item setting
+  -u, --user=user        Change the default steamID setting
+
+EXAMPLES
+
+  $ steam user:all
+  $ steam user:all -d
+  $ steam user:all -d -t true -c 6
+```
+
+_See code: [src/commands/user/all.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v3.0.0/src/commands/user/all.js)_
+
+## `steam user:inv`
+
+Grab items from a Steam Inventory
+
+```
+USAGE
+  $ steam user:inv
+
+OPTIONS
+  -c, --context=context  Changes the default context id setting
+  -d, --default          Use this to set the given user as the default
+  -g, --game=game        Change the default game setting
+  -k, --key=key          Change the current Steam API Key
+  -t, --trade=trade      Change the default show-tradable-item setting
+  -u, --user=user        Change the default steamID setting
+
+EXAMPLES
+
+  $ steam user:inv
+  $ steam user:inv -d
+  $ steam user:inv -d --game 440
+```
+
+_See code: [src/commands/user/inv.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v3.0.0/src/commands/user/inv.js)_
 <!-- commandsstop -->
 
 # Updates
