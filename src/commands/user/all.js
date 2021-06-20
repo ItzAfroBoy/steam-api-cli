@@ -2,17 +2,17 @@
 const { Command, flags } = require('@oclif/command');
 const { cli } = require('cli-ux');
 
-const { flagsCheck, grabInv } = require('../utils');
+const { flagsCheck, grabAll } = require('../../utils');
 const conf = require('conf').default;
 
 const config = new conf();
 
 //* Command *//
-class invCommand extends Command {
+class AllCommand extends Command {
 	async run() {
-		const { flags } = this.parse(invCommand);
+		const { flags } = this.parse(AllCommand);
 
-		let contextid, tradable, steamid, appid, key;
+		let steamid, contextid, tradable, appid, key;
 
 		if (flags.default) {
 			if (config.has('steamid')) {
@@ -24,10 +24,10 @@ class invCommand extends Command {
 				appid = config.get('appid');
 				key = config.get('key');
 
-				grabInv(appid, contextid, steamid, tradable, key);
+				grabAll(appid, contextid, steamid, tradable, key);
 			} else {
 				for (let i = 1; i > 0; i++) {
-					await cli.prompt('Please enter the SteamID').then((one) => (steamid = one));
+					await cli.prompt('SteamID').then((one) => (steamid = one));
 					if (steamid.length == 17) {
 						i = -10;
 					} else if (steamid.length < 17 || steamid.length > 17) {
@@ -35,15 +35,15 @@ class invCommand extends Command {
 					}
 				}
 
-				await cli.prompt('Please enter the appID', { default: '730' }).then((two) => {
+				await cli.prompt('appID', { default: '730' }).then((two) => {
 					appid = Number(two);
 				});
 
-				await cli.prompt('Please enter the Context ID', { default: '2' }).then((three) => (contextid = three));
+				await cli.prompt('Context ID', { default: '2' }).then((three) => (contextid = Number(three)));
 
-				await cli.prompt('Please enter your Steam API key', { type: 'hide' }).then((four) => (key = four));
+				await cli.prompt('Steam API key', { type: 'hide' }).then((four) => (key = four));
 
-				await cli.prompt('Want to only show tradable items? (y/n)', { default: 'n' }).then((five) => {
+				await cli.prompt('Show tradable items? (y/n)', { default: 'n' }).then((five) => {
 					if (five == 'y') {
 						tradable = true;
 					} else {
@@ -57,11 +57,11 @@ class invCommand extends Command {
 				config.set('appid', appid);
 				config.set('key', key);
 
-				grabInv(appid, contextid, steamid, tradable, key);
+				grabAll(appid, contextid, steamid, tradable, key);
 			}
 		} else {
 			for (let i = 1; i > 0; i++) {
-				await cli.prompt('Please enter the SteamID').then((one) => (steamid = one));
+				await cli.prompt('SteamID').then((one) => (steamid = one));
 				if (steamid.length == 17) {
 					i = -10;
 				} else if (steamid.length < 17 || steamid.length > 17) {
@@ -69,23 +69,23 @@ class invCommand extends Command {
 				}
 			}
 
-			await cli.prompt('Please enter the appID', { default: '730' }).then((two) => {
+			await cli.prompt('appID', { default: '730' }).then((two) => {
 				appid = Number(two);
 			});
 
-			await cli.prompt('Please enter the Context ID', { default: '2' }).then((three) => (contextid = three));
+			await cli.prompt('Context ID', { default: '2' }).then((three) => (contextid = Number(three)));
 
 			if (config.has('key')) {
 				key = config.get('key');
 			} else {
-				await cli.prompt('Please enter your Steam API key', { type: 'hide' }).then((four) => (key = four));
+				await cli.prompt('Steam API key', { type: 'hide' }).then((four) => (key = four));
 				config.set('key', key);
 				this.log('Your API Key will now be stored for easier use');
 			}
 
 			await cli.wait();
 
-			await cli.prompt('Want to only show tradable items? (y/n)', { default: 'n' }).then((five) => {
+			await cli.prompt('Show tradable items? (y/n)', { default: 'n' }).then((five) => {
 				if (five == 'y') {
 					tradable = true;
 				} else {
@@ -93,23 +93,23 @@ class invCommand extends Command {
 				}
 			});
 
-			grabInv(appid, contextid, steamid, tradable, key);
+			grabAll(appid, contextid, steamid, tradable, key);
 		}
 	}
 }
 
 //* Description *//
-invCommand.description = `Grab items from a Steam Inventory`;
+AllCommand.description = `Grabs items and info about a user`;
 
 //* Examples *//
-invCommand.examples = `
-$ steam inv
-$ steam inv -d
-$ steam inv -d --game 440
+AllCommand.examples = `
+$ steam user:all
+$ steam user:all -d
+$ steam user:all -d -t true -c 6
 `;
 
 //* Flags *//
-invCommand.flags = {
+AllCommand.flags = {
 	default: flags.boolean({ char: 'd', description: 'Use this to set the given user as the default' }),
 	trade: flags.string({ char: 't', description: 'Change the default show-tradable-item setting' }),
 	context: flags.integer({ char: 'c', description: 'Changes the default context id setting' }),
@@ -119,4 +119,4 @@ invCommand.flags = {
 };
 
 //* Export *//
-module.exports = invCommand;
+module.exports = AllCommand;

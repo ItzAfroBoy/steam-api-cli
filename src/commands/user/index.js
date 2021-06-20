@@ -3,7 +3,7 @@ const { Command, flags } = require('@oclif/command');
 const { cli } = require('cli-ux');
 
 const conf = require('conf').default;
-const { flagsCheck, grabUser} = require('../utils');
+const { flagsCheck, grabUser } = require('../../utils');
 
 const config = new conf();
 

@@ -14,11 +14,13 @@
     "@oclif/config": "^1.17.0",
     "@oclif/plugin-help": "^3.2.2",
     "axios": "^0.21.1",
-    "chalk": "^4.1.0",
+    "chalk": "^4.1.1",
     "clear": "^0.1.0",
     "cli-ux": "^5.5.1",
     "conf": "^9.0.2",
     "crypto-js": "^4.0.0",
+    "longest": "^2.0.1",
+    "repeat-string": "^1.6.1",
     "steam-inventory-api": "^2.0.10"
   },
   "devDependencies": {
