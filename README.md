@@ -30,7 +30,7 @@ $ npm install -g steam-api-cli
 $ steam COMMAND
 running command...
 $ steam (-v|--version|version)
-steam-api-cli/3.0.0 win32-x64 node-v14.16.1
+steam-api-cli/2.1.0 win32-x64 node-v14.16.1
 $ steam --help [COMMAND]
 USAGE
   $ steam COMMAND
@@ -83,7 +83,7 @@ EXAMPLES
   $ steam user -d -u 76561198378367745
 ```
 
-_See code: [src/commands/user/index.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v3.0.0/src/commands/user/index.js)_
+_See code: [src/commands/user/index.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v2.1.0/src/commands/user/index.js)_
 
 ## `steam user:all`
 
@@ -108,7 +108,7 @@ EXAMPLES
   $ steam user:all -d -t true -c 6
 ```
 
-_See code: [src/commands/user/all.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v3.0.0/src/commands/user/all.js)_
+_See code: [src/commands/user/all.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v2.1.0/src/commands/user/all.js)_
 
 ## `steam user:inv`
 
@@ -133,7 +133,7 @@ EXAMPLES
   $ steam user:inv -d --game 440
 ```
 
-_See code: [src/commands/user/inv.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v3.0.0/src/commands/user/inv.js)_
+_See code: [src/commands/user/inv.js](https://github.com/ItzAfroBoy/steam-api-cli/blob/v2.1.0/src/commands/user/inv.js)_
 <!-- commandsstop -->
 
 # Updates
