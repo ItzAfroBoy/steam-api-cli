@@ -21,7 +21,7 @@ To use `steam-api-cli` you will need to have the following:
 
 * [A Steam API Key](https://steamcommunity.com/dev/apikey)
 * [A SteamID](https://steamid.io/)
-* An appID
+* The appID
 
 # Usage
 <!-- usage -->
@@ -152,6 +152,7 @@ and all features have not been implemented yet but are in progress
 ## Change Log
 
 ```markdown
+* 2.1.0 New command and structure
 * 2.0.1 Readme bug fixes
 * 2.0.0 Rewrite of program and new `user` command
 * 1.2.1 Readme bug fixes
